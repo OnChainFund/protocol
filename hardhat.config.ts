@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import '@enzymefinance/hardhat/plugin';
 import '@nomiclabs/hardhat-etherscan';
+
 import 'hardhat-deploy/dist/src/type-extensions';
 import './tasks/verify';
 
@@ -10,8 +11,7 @@ import type { HardhatUserConfig } from 'hardhat/types';
 function node(networkName: string) {
   const fallback = 'http://localhost:8545';
   const uppercase = networkName.toUpperCase();
-  const uri = process.env[`ETHEREUM_NODE_${uppercase}`] || process.env.ETHEREUM_NODE || fallback;
-
+  const uri = process.env[`ETHEREUM_NODE_${uppercase}`] || process.env.ETHEREUM_NODE_AVALANCHE || fallback;
   return uri.replace('{{NETWORK}}', networkName);
 }
 
@@ -111,13 +111,17 @@ const config: HardhatUserConfig = {
         mnemonic,
       },
       blockGasLimit: gas,
-      chainId: 1,
+      chainId: 43114,
       forking: {
         blockNumber: 14438000, // Mar 22, 2022
-        url: node('mainnet'),
+        url: node('avalanche'),
       },
       gasPrice: 0, // TODO: Consider removing this again.
       initialBaseFeePerGas: 0,
+    },
+    avalanche: {
+      accounts: accounts('avalanche'),
+      url: node('avalanche'),
     },
     kovan: {
       accounts: accounts('kovan'),
