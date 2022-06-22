@@ -10,7 +10,6 @@ import { isAvalanche } from '../../utils/helpers';
 //const mln = constants.AddressZero;
 const weth = '0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB';
 const wavax = '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7';
-const usdc = '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E';
 const wrappedNativeAsset = wavax;
 //const feeToken = usdc;
 const feeToken = constants.AddressZero;
@@ -33,7 +32,7 @@ const primitives = {
   sushi: '0x37B608519F91f70F2EeB0e5Ed9AF4061722e4F76',
   uma: '0x3Bd2B1c7ED8D396dbb98DED3aEbb41350a5b2339',
   uni: '0x8eBAf22B6F053dFFeaf46f4Dd9eFA95D89ba8580',
-  usdc: '0x8eBAf22B6F053dFFeaf46f4Dd9eFA95D89ba8580',
+  usdc: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
   usdt: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',
   wbtc: '0x50b7545627a5162F82A992c33b87aDc75187B218',
   weth: '0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB',
