@@ -47,7 +47,7 @@ export function isMaticMumbai(id: number | string) {
 }
 
 export function isAvalanche(id: number | string) {
-  return isNetwork(id, Network.AVALANCHE);
+  return true;
 }
 export function isOneOfNetworks(id: number | string, networks: Network[]) {
   const network = getNetwork(id).name;

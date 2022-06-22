@@ -10,14 +10,14 @@ import {
   curveMinterMintManySelector,
   curveMinterMintSelector,
   curveMinterToggleApproveMintSelector,
-  encodeArgs,
+  //encodeArgs,
   FundDeployer as FundDeployerContract,
   pricelessAssetBypassStartAssetBypassTimelockSelector,
   ProtocolFeeTracker,
-  synthetixAssignExchangeDelegateSelector,
+  //synthetixAssignExchangeDelegateSelector,
   vaultCallAnyDataHash,
 } from '@enzymefinance/protocol';
-import { utils } from 'ethers';
+//import { utils } from 'ethers';
 import type { DeployFunction } from 'hardhat-deploy/types';
 
 import { loadConfig } from '../../../utils/config';
@@ -38,7 +38,7 @@ const fn: DeployFunction = async function (hre) {
   const onlyRemoveDustExternalPositionPolicy = await get('OnlyRemoveDustExternalPositionPolicy');
   const onlyUntrackDustOrPricelessAssetsPolicy = await get('OnlyUntrackDustOrPricelessAssetsPolicy');
   const protocolFeeTracker = await get('ProtocolFeeTracker');
-  const synthetixAdapter = await get('SynthetixAdapter');
+  //const synthetixAdapter = await get('SynthetixAdapter');
 
   const fundDeployerInstance = new FundDeployerContract(fundDeployer.address, deployer);
 
@@ -79,13 +79,13 @@ const fn: DeployFunction = async function (hre) {
   }
 
   // Allows delegating trading on Synthetix to the SynthetixAdapter only
-  if (config.synthetix) {
-    vaultCalls.push([
-      config.synthetix.delegateApprovals,
-      synthetixAssignExchangeDelegateSelector,
-      utils.keccak256(encodeArgs(['address'], [synthetixAdapter.address])),
-    ]);
-  }
+  //if (config.synthetix) {
+  //  vaultCalls.push([
+  //    config.synthetix.delegateApprovals,
+  //    synthetixAssignExchangeDelegateSelector,
+  //    utils.eccak256(encodeArgs(['address'], [synthetixAdapter.address])),
+  //  ]);
+  //}
 
   const vaultCallValues = Object.values(vaultCalls);
   const vaultCallContracts = vaultCallValues.map(([contract]) => contract);
@@ -130,7 +130,7 @@ fn.dependencies = [
   'OnlyUntrackDustOrPricelessAssetsPolicy',
   'Policies',
   'ProtocolFeeTracker',
-  'SynthetixAdapter',
+  //'SynthetixAdapter',
 ];
 fn.runAtTheEnd = true;
 
