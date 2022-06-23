@@ -1,6 +1,7 @@
-import type { PoolTogetherV4AdapterArgs } from '@enzymefinance/protocol';
+import type { UniswapV2ExchangeAdapterArgs } from '@enzymefinance/protocol';
 import type { DeployFunction } from 'hardhat-deploy/types';
 
+import { loadConfig } from '../../../../utils/config';
 import { isOneOfNetworks, Network } from '../../../../utils/helpers';
 
 const fn: DeployFunction = async function (hre) {
@@ -10,14 +11,13 @@ const fn: DeployFunction = async function (hre) {
   } = hre;
 
   const deployer = (await getSigners())[0];
+  const config = await loadConfig(hre);
   const integrationManager = await get('IntegrationManager');
-  const poolTogetherV4PriceFeed = await get('PoolTogetherV4PriceFeed');
 
-  await deploy('PoolTogetherV4Adapter', {
-    args: [integrationManager.address, poolTogetherV4PriceFeed.address] as PoolTogetherV4AdapterArgs,
+  await deploy('UniswapV2ExchangeAdapter', {
+    args: [integrationManager.address, config.uniswap.router] as UniswapV2ExchangeAdapterArgs,
     from: deployer.address,
     linkedData: {
-      nonSlippageAdapter: true,
       type: 'ADAPTER',
     },
     log: true,
@@ -25,12 +25,12 @@ const fn: DeployFunction = async function (hre) {
   });
 };
 
-fn.tags = ['Release', 'Adapters', 'PoolTogetherV4Adapter'];
-fn.dependencies = ['IntegrationManager', 'PoolTogetherV4PriceFeed'];
+fn.tags = ['Release', 'Adapters', 'TraderJoeExchangeAdapter'];
+fn.dependencies = ['Config', 'IntegrationManager'];
 fn.skip = async (hre) => {
   const chain = await hre.getChainId();
 
-  return !isOneOfNetworks(chain, [Network.HOMESTEAD, Network.MATIC]);
+  return !isOneOfNetworks(chain, [Network.AVALANCHE]);
 };
 
 export default fn;

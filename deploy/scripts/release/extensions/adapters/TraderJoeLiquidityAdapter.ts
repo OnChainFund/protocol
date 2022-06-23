@@ -1,3 +1,4 @@
+import type { UniswapV2LiquidityAdapterArgs } from '@enzymefinance/protocol';
 import type { DeployFunction } from 'hardhat-deploy/types';
 
 import { loadConfig } from '../../../../utils/config';
@@ -13,10 +14,11 @@ const fn: DeployFunction = async function (hre) {
   const config = await loadConfig(hre);
   const integrationManager = await get('IntegrationManager');
 
-  await deploy('UniswapV3Adapter', {
-    args: [integrationManager.address, config.uniswapV3.router],
+  await deploy('UniswapV2LiquidityAdapter', {
+    args: [integrationManager.address, config.uniswap.router, config.uniswap.factory] as UniswapV2LiquidityAdapterArgs,
     from: deployer.address,
     linkedData: {
+      nonSlippageAdapter: true,
       type: 'ADAPTER',
     },
     log: true,
@@ -24,12 +26,12 @@ const fn: DeployFunction = async function (hre) {
   });
 };
 
-fn.tags = ['Release', 'Adapters', 'UniswapV3Adapter'];
+fn.tags = ['Release', 'Adapters', 'TraderJoeLiquidityAdapter'];
 fn.dependencies = ['Config', 'IntegrationManager'];
 fn.skip = async (hre) => {
   const chain = await hre.getChainId();
 
-  return !isOneOfNetworks(chain, [Network.HOMESTEAD, Network.MATIC]);
+  return !isOneOfNetworks(chain, [Network.AVALANCHE]);
 };
 
 export default fn;

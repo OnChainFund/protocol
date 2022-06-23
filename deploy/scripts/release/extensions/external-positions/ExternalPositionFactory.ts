@@ -18,6 +18,6 @@ const fn: DeployFunction = async function (hre) {
 };
 
 fn.tags = ['Release', 'ExternalPositionFactory'];
-fn.dependencies = ['Config'];
+fn.dependencies = ['Config', 'Dispatcher'];
 
 export default fn;

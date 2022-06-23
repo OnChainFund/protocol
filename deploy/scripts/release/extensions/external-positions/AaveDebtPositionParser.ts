@@ -24,7 +24,7 @@ fn.dependencies = ['ValueInterpreter'];
 fn.skip = async (hre) => {
   const chain = await hre.getChainId();
 
-  return !isOneOfNetworks(chain, [Network.HOMESTEAD, Network.MATIC]);
+  return !isOneOfNetworks(chain, [Network.HOMESTEAD, Network.MATIC, Network.AVALANCHE]);
 };
 
 export default fn;
