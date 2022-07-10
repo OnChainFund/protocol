@@ -41,7 +41,9 @@ abstract contract ChainlinkPriceFeedMixin {
 
     uint256 private constant ETH_UNIT = 10**18;
 
-    uint256 private immutable STALE_RATE_THRESHOLD;
+    uint256 public STALE_RATE_THRESHOLD;
+
+    //uint256 private immutable STALE_RATE_THRESHOLD;
     address private immutable WETH_TOKEN;
 
     address private ethUsdAggregator;

@@ -1,5 +1,4 @@
 import type { FundValueCalculatorUsdWrapperArgs } from '@enzymefinance/protocol';
-import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS, ONE_YEAR_IN_SECONDS } from '@enzymefinance/protocol';
 import type { DeployFunction } from 'hardhat-deploy/types';
 
 import { loadConfig } from '../../../utils/config';
@@ -14,9 +13,11 @@ const fn: DeployFunction = async function (hre) {
   const deployer = (await getSigners())[0];
   const fundValueCalculatorRouter = await get('FundValueCalculatorRouter');
 
-  const chainlinkStaleRateThreshold = hre.network.live
-    ? ONE_DAY_IN_SECONDS + ONE_HOUR_IN_SECONDS
-    : ONE_YEAR_IN_SECONDS * 10;
+  // 太久了
+  // const chainlinkStaleRateThreshold = hre.network.live
+  //  ? ONE_DAY_IN_SECONDS + ONE_HOUR_IN_SECONDS
+  //  : ONE_YEAR_IN_SECONDS * 10;
+  const chainlinkStaleRateThreshold = 1;
 
   await deploy('FundValueCalculatorUsdWrapper', {
     args: [

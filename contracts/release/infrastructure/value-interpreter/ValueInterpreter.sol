@@ -46,6 +46,12 @@ contract ValueInterpreter is
         ChainlinkPriceFeedMixin(_wethToken, _chainlinkStaleRateThreshold)
     {}
 
+    // self add
+
+    function setStaleRateThreshold(uint256 staleRateThreshold) public {
+        STALE_RATE_THRESHOLD = staleRateThreshold;
+    }
+
     // EXTERNAL FUNCTIONS
 
     /// @notice Calculates the total value of given amounts of assets in a single quote asset

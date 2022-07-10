@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import '@enzymefinance/hardhat/plugin';
 import '@nomiclabs/hardhat-etherscan';
-
 import 'hardhat-deploy/dist/src/type-extensions';
 import './tasks/verify';
+import '@nomiclabs/hardhat-ethers';
 
 import { utils } from 'ethers';
 import type { HardhatUserConfig } from 'hardhat/types';
@@ -12,6 +12,7 @@ function node(networkName: string) {
   const fallback = 'http://localhost:8545';
   const uppercase = networkName.toUpperCase();
   const uri = process.env[`ETHEREUM_NODE_${uppercase}`] || process.env.ETHEREUM_NODE_AVALANCHE || fallback;
+
   return uri.replace('{{NETWORK}}', networkName);
 }
 
@@ -104,6 +105,14 @@ const config: HardhatUserConfig = {
     deployer: 0,
   },
   networks: {
+    avalanche: {
+      accounts: accounts('avalanche'),
+      url: node('avalanche'),
+    },
+    ganache: {
+      accounts: accounts('ganache'),
+      url: node('ganache'),
+    },
     hardhat: {
       accounts: {
         accountsBalance: utils.parseUnits('1', 36).toString(),
@@ -118,10 +127,6 @@ const config: HardhatUserConfig = {
       },
       gasPrice: 0, // TODO: Consider removing this again.
       initialBaseFeePerGas: 0,
-    },
-    avalanche: {
-      accounts: accounts('avalanche'),
-      url: node('avalanche'),
     },
     kovan: {
       accounts: accounts('kovan'),
