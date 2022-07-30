@@ -47,7 +47,11 @@ export function isMaticMumbai(id: number | string) {
 }
 
 export function isAvalanche(id: number | string) {
-  return true;
+  return Number(id) === 43114;
+}
+
+export function isFuji(id: number | string) {
+  return Number(id) === 43113;
 }
 export function isOneOfNetworks(id: number | string, networks: Network[]) {
   const network = getNetwork(id).name;

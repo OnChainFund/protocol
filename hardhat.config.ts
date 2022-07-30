@@ -99,7 +99,8 @@ const config: HardhatUserConfig = {
     disambiguatePaths: false,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: 'XS7GIHS95YXCHXX8RYJHS3KY38ZI7E9AI3',
+    // apiUrl: 'https://testnet.snowtrace.io',
   },
   namedAccounts: {
     deployer: 0,
@@ -108,6 +109,10 @@ const config: HardhatUserConfig = {
     avalanche: {
       accounts: accounts('avalanche'),
       url: node('avalanche'),
+    },
+    fuji: {
+      accounts: accounts('fuji'),
+      url: 'https://api.avax-test.network/ext/bc/C/rpc',
     },
     ganache: {
       accounts: accounts('ganache'),

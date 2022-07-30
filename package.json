@@ -40,6 +40,7 @@
     "@commitlint/config-conventional": "^16.2.1",
     "@enzymefinance/babel-config": "^1.0.19",
     "@enzymefinance/eslint-config": "^1.0.24",
+    "@enzymefinance/ethers": "^4.0.5",
     "@enzymefinance/prettier-config": "^1.0.9",
     "@manypkg/cli": "^0.19.1",
     "@nomiclabs/hardhat-ethers": "^2.0.6",

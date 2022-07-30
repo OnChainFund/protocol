@@ -20,14 +20,16 @@ const fn: DeployFunction = async function (hre) {
   const externalPositionManager = await get('ExternalPositionManager');
   const fundDeployer = await get('FundDeployer');
   const gasRelayPaymasterFactory = await getOrNull('GasRelayPaymasterFactory');
+  // fuji: Null
   const protocolFeeReserveProxy = await get('ProtocolFeeReserveProxy');
   const protocolFeeTracker = await get('ProtocolFeeTracker');
 
   const feeTokenBurner = config.feeTokenBurn.burnFromVault
     ? constants.AddressZero
     : config.feeTokenBurn.sendToProtocolFeeReserve
-    ? protocolFeeReserveProxy
+    ? protocolFeeReserveProxy.address // fuji
     : config.feeTokenBurn.externalBurnerAddress;
+  // fuji:protocolFeeReserveProxy
 
   const vaultLib = await deploy('VaultLib', {
     args: [
@@ -47,10 +49,12 @@ const fn: DeployFunction = async function (hre) {
 
   if (vaultLib.newlyDeployed) {
     const vaultLibInstance = new VaultLib(vaultLib, deployer);
+
     // Initialize the lib with dummy data to prevent another init() call
     await vaultLibInstance.init(LIB_INIT_GENERIC_DUMMY_ADDRESS, LIB_INIT_GENERIC_DUMMY_ADDRESS, '');
 
     const fundDeployerInstance = new FundDeployerContract(fundDeployer.address, deployer);
+
     log('Updating VaultLib on FundDeployer');
     await fundDeployerInstance.setVaultLib(vaultLib.address);
   }
